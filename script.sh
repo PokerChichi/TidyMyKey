@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# the round function:
+round()
+{
+echo $(printf %.$2f $(echo "scale=$2;(((10^$2)*$1)+0.5)/(10^$2)" | bc))
+};
+
 # Checking parameters number
 if [ $# = 0 ]; then
 	rep="."
@@ -26,10 +32,10 @@ dan=("exe" "pif" "application" "gadget" "msi" "msp" "com" "scr" "hta" "cpl" "msc
 
 # Directories creation
 if [ $typ = "-s" ]; then
-	for (( i=0; i<11; i++ )); do mkdir lvl$i; done
+	for (( i=0; i<11; i++ )); do mkdir -p lvl$i; done
 fi
 
-echo $rep
+echo "repertoire:$rep"
 
 # Creation of files list
 find $rep/ -type f > tmp.txt
@@ -39,12 +45,34 @@ while read line
 do   
 
 	val=0;
+	sum=0;
+	com=0;
 	
    # type of file
-   ft=`file -bz --mime-type $line`
+   ft=`file -bz --mime-type $line | cut -d'/' -f2`
       
    # lvl dangerosity
-   echo $ft
+   ave=0;
+   
+   cd cve-search
+   # python3.3 search.py -p microsoft -o json | jq -r ".cvss"
+   python3.3 search.py -f microsoft | grep -o "cvss': '[0-9]*.[0-9]" | cut -d"'" -f3 > tmp2.txt
+   
+   while read line2  
+	do   
+		sum=`echo "scale=1;($sum+$line2)" | bc`
+		com=$(($com+1))
+			
+	# fin de boucle   
+	done < tmp2.txt
+
+	ave=`echo "($sum/$com)" | bc`
+	lvl=$(round $ave 0)
+
+	echo "moyenne:$lvl"
+
+	cd ..   
+   echo "type:$ft"
    
    
    # check entention
@@ -55,17 +83,18 @@ do
    	fi
    done
    
-   echo $val
+   echo "val:$val"
    
    lvl=5;
    
    if [ $typ = "-s" ]; then
    	# mv of file in the directory
-   	mv $line $lvl
+   	# mv $line $lvl
+   	echo "move"
    else
    	# add security lvl before extention
    	filename="${line%.*}"
-   	mv $line $filename.$lvl.$extention
+   	# mv $line $filename.$lvl.$extention
    fi
    
 # fin de boucle   
