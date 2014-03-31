@@ -2,74 +2,23 @@
 
  =========
 
- 
+#####Files and repositories reorganisation according to security level
 
--Files and repositories reorganisation according to security level
+#### Short description
 
-+*See below for french traduction*
+Files and repositories reorganisation according to security level in order to implement this sort on Circlean project (https://github.com/CIRCL/Circlean)
 
-+
+#### Participants
 
-+#### Short description
+**Me**, **Me** and **Me**
 
-+
+#### Language
 
-+Files and repositories reorganisation according to security level in order to implement this sort on Circlean project (https://github.com/CIRCL/Circlean)
+I will use **bash** as programming language
 
-+
+#### Requirement
 
-+#### Participants
+Please, make a Git Clone of cve-search from Adulau : git clone http://github.com/adulau/cve-search
 
-+
+*MongoDB*, *python3.x* and *pymongo* must be installed
 
-+**Me**, **Me** and **Me**
-
-+
-
-+#### Language
-
-+
-
-+I will use **bash** as programming language
-
-+
-
-+
-
-+=========
-
-+
-
-+#### Courte description
-
-+
-
-+Réorganisation de fichiers et répertoires en fonction de leur degré de dangerosité dans le but d'implémenter le tri sur le projet Circlean (https://github.com/CIRCL/Circlean)
-
-+
-
-+#### Participants
-
-+
-
-+**Moi**, **Moi** and **Moi**
-
-+
-
-+#### Langage
-
-+
-
-+J'utiliserai la langage **bash** pour rédiger mes scripts
-
-+
-
-+
-
-+
-
-+
-
-+
-
-+
